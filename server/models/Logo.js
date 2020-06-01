@@ -22,6 +22,7 @@ var Image = new mongoose.Schema({
 })
 var LogoSchema = new mongoose.Schema({
   id: String,
+  name: String,
   texts: [Text],
   images: [Image],
   lastUpdate: { type: Date, default: Date.now }
