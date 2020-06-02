@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-
 import '../App.css';
-import { Stage, Text, Image, Layer } from 'react-konva';
-import Konva from 'konva';
+import { Stage, Text, Rect, Layer } from 'react-konva';
+import URLImage from "./URLImage";
+
 
 class PreviewCanvas extends Component {
     constructor(props) {
@@ -11,22 +11,58 @@ class PreviewCanvas extends Component {
         this.parentRef = React.createRef();
     };
 
+
+
     renderCanvas = () => {
         if (this.props.selected) {
-            var parentWidth = document.documentElement.clientWidth * 0.60;
-            var parentHeight = document.documentElement.clientHeight * 0.65;
-            return (<Stage width={parentWidth} height={parentHeight}>
+            return (<Stage width={this.props.width} height={this.props.height} >
                 <Layer>
-                    {this.props.texts.map((text) => {
-                        return (<Text
-                            text={text.text}
-                            x={text.left}
-                            y={text.top}
-                            fill={text.color}
-                            fontSize={24}
-                        />);
-                    })}
+                    <Rect width={this.props.width} height={this.props.height} fill={"#e8eef2"} />
                 </Layer>
+                {this.props.contents.map((content, index) => {
+                    console.log(content.layer + " " + index);
+                    if (content.type == "text") {
+                        return (<Layer key={index}><Text
+                            id={content.layer}
+                            name={content.type}
+                            text={content.text}
+                            x={content.x}
+                            y={content.y}
+                            fill={content.color}
+                            fontSize={content.fontSize}
+                            fontFamily={content.fontFamily}
+                            draggable
+                        /></Layer>);
+                    }
+                    else {
+                        return (
+                            <Layer key={index}>
+                                {/* <Image
+                                    id={content.layer}
+                                    name={content.type}
+                                    text={content.text}
+                                    x={content.x}
+                                    y={content.y}
+                                    
+                                    width={content.width}
+                                    heigt={content.height}
+                                /> */}
+                                <URLImage src={content.src}
+                                    id={content.layer}
+                                    name={content.type}
+                                    text={content.text}
+                                    x={content.x}
+                                    y={content.y}
+                                    width={content.width}
+                                    heigt={content.height} />
+                            </Layer>
+                        );
+
+                    }
+
+
+                })}
+
             </Stage>);
         }
     }

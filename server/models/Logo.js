@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
 var Text = new mongoose.Schema({
   layer: Number,
+  type: String,
   text: String,
   x: Number,
   y: Number,
@@ -11,6 +12,7 @@ var Text = new mongoose.Schema({
 
 var Image = new mongoose.Schema({
   layer: Number,
+  type: String,
   src: String,
   x: Number,
   y: Number,
@@ -19,6 +21,8 @@ var Image = new mongoose.Schema({
 })
 var LogoSchema = new mongoose.Schema({
   id: String,
+  height: Number,
+  width: Number,
   name: String,
   texts: [Text],
   images: [Image],

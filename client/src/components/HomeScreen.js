@@ -5,7 +5,7 @@ import gql from 'graphql-tag';
 import logo from '../img/Logo final.svg'
 import plusIcon from '../img/plus_icon.svg'
 import { Query } from 'react-apollo';
-import Canvas from './PreviewCanvas'
+import Canvas from './PreviewCanvas';
 const GET_LOGOS = gql`
   {
     logos {
@@ -20,26 +20,28 @@ query logo($logoId: String) {
         logo(id: $logoId) {
             _id
             name
+            height
+            width
             texts {
-              text
-              left
-              top
-              color
-              fontSize
-              backgroundColor
-              borderColor
-              borderRadius
-              borderWidth
-              padding
-              margin
-            }
+            layer
+            type
+            text
+            x
+            y
+            color
+            fontSize
+            fontFamily
+            } 
             images {
-              src
-              left
-              top
-              height
-              width
-            }
+            layer
+            type
+            src
+            x
+            y
+            height
+            width
+            layer
+            } 
             lastUpdate
         }
     }
@@ -61,7 +63,17 @@ class HomeScreen extends Component {
                     {({ loading, error, data }) => {
                         if (loading) return 'Loading...';
                         if (error) return `Error! ${error.message}`;
-                        return <Canvas selected={this.state.selected} texts={data.logo.texts} images={data.logo.images} />;
+                        console.log(data.logo)
+                        return <Canvas selected={this.state.selected} width={data.logo.width} height={data.logo.height}
+                            contents={data.logo.texts.concat(data.logo.images).sort(function (logo1, logo2) {
+                                if (logo1.layer > logo2.layer) {
+                                    return 1;
+                                }
+                                else if (logo1.lastUpdate === logo2.lastUpdate) {
+                                    return 0;
+                                }
+                                return -1;
+                            })} />;
                     }}
                 </Query>);
         }
