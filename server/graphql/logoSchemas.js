@@ -15,13 +15,16 @@ var textType = new GraphQLObjectType({
     name: 'text',
     fields: function () {
         return {
+            layer: {
+                type: GraphQLInt
+            },
             text: {
                 type: GraphQLString
             },
-            left: {
+            x: {
                 type: GraphQLInt
             },
-            top: {
+            y: {
                 type: GraphQLInt
             },
             color: {
@@ -30,23 +33,8 @@ var textType = new GraphQLObjectType({
             fontSize: {
                 type: GraphQLInt
             },
-            backgroundColor: {
+            fontFamily: {
                 type: GraphQLString
-            },
-            borderColor: {
-                type: GraphQLString
-            },
-            borderRadius: {
-                type: GraphQLInt
-            },
-            borderWidth: {
-                type: GraphQLInt
-            },
-            padding: {
-                type: GraphQLInt
-            },
-            margin: {
-                type: GraphQLInt
             }
         }
     }
@@ -57,13 +45,16 @@ var imageType = new GraphQLObjectType({
     name: 'image',
     fields: function () {
         return {
+            layer: {
+                type: GraphQLInt
+            },
             src: {
                 type: GraphQLString
             },
-            left: {
+            x: {
                 type: GraphQLInt
             },
-            top: {
+            y: {
                 type: GraphQLInt
             },
             height: {
@@ -101,6 +92,12 @@ var logoType = new GraphQLObjectType({
             _id: {
                 type: GraphQLString
             },
+            height: {
+                type: GraphQLInt
+            },
+            width: {
+                type: GraphQLInt
+            },
             name: {
                 type: GraphQLString
             },
@@ -121,14 +118,17 @@ var logoType = new GraphQLObjectType({
 var textInputType = new GraphQLInputObjectType({
     name: 'textInput',
     fields: () => ({
+        layer: {
+            type: GraphQLInt
+        },
         text: {
             type: GraphQLString
         },
-        left: {
-            type: GraphQLFloat
+        x: {
+            type: GraphQLInt
         },
-        top: {
-            type: GraphQLFloat
+        y: {
+            type: GraphQLInt
         },
         color: {
             type: GraphQLString
@@ -136,26 +136,8 @@ var textInputType = new GraphQLInputObjectType({
         fontSize: {
             type: GraphQLInt
         },
-        backgroundColor: {
+        fontFamily: {
             type: GraphQLString
-        },
-        borderColor: {
-            type: GraphQLString
-        },
-        borderRadius: {
-            type: GraphQLInt
-        },
-        borderWidth: {
-            type: GraphQLInt
-        },
-        padding: {
-            type: GraphQLInt
-        },
-        margin: {
-            type: GraphQLInt
-        },
-        lastUpdate: {
-            type: GraphQLDate
         }
 
     })
@@ -165,13 +147,16 @@ var textInputType = new GraphQLInputObjectType({
 var imageInputType = new GraphQLInputObjectType({
     name: 'imageInput',
     fields: () => ({
+        layer: {
+            type: GraphQLInt
+        },
         src: {
             type: GraphQLString
         },
-        left: {
+        x: {
             type: GraphQLInt
         },
-        top: {
+        y: {
             type: GraphQLInt
         },
         height: {
@@ -180,7 +165,6 @@ var imageInputType = new GraphQLInputObjectType({
         width: {
             type: GraphQLInt
         }
-
     })
 });
 
@@ -228,6 +212,12 @@ var mutation = new GraphQLObjectType({
                     name: {
                         type: new GraphQLNonNull(GraphQLString)
                     },
+                    height: {
+                        type: new GraphQLNonNull(GraphQLInt)
+                    },
+                    width: {
+                        type: new GraphQLNonNull(GraphQLInt)
+                    },
                     texts: {
                         type: new GraphQLNonNull(GraphQLList(textInputType))
                     },
@@ -254,6 +244,12 @@ var mutation = new GraphQLObjectType({
                     name: {
                         type: new GraphQLNonNull(GraphQLString)
                     },
+                    height: {
+                        type: new GraphQLNonNull(GraphQLInt)
+                    },
+                    width: {
+                        type: new GraphQLNonNull(GraphQLInt)
+                    },
                     texts: {
                         type: new GraphQLNonNull(GraphQLList(textInputType))
                     },
@@ -263,6 +259,8 @@ var mutation = new GraphQLObjectType({
                 },
                 resolve(root, params) {
                     return LogoModel.findByIdAndUpdate(params.id, {
+                        name: params.name,
+                        height: params.height, width: params.width,
                         texts: params.texts, images: params.images, lastUpdate: new Date()
                     }, function (err) {
                         if (err) return next(err);

@@ -1,22 +1,19 @@
 var mongoose = require('mongoose');
 var Text = new mongoose.Schema({
+  layer: Number,
   text: String,
-  left: Number,
-  top: Number,
+  x: Number,
+  y: Number,
   color: String,
   fontSize: Number,
-  backGroundColor: String,
-  borderColor: String,
-  borderRadius: Number,
-  borderWidth: Number,
-  padding: Number,
-  margin: Number
+  fontFamily: String
 })
 
 var Image = new mongoose.Schema({
+  layer: Number,
   src: String,
-  left: Number,
-  top: Number,
+  x: Number,
+  y: Number,
   height: Number,
   width: Number
 })
