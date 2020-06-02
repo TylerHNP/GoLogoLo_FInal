@@ -128,11 +128,13 @@ nav ul {
 .workplace-container {
   flex: 2;
   padding: 1.5rem;
+  max-width: 70vw;
+  max-height: 90vh;
 }
 
 #preview_canvas {
-  height: 65vh;
-  width: 100%;
+  max-height: 65vh;
+  max-width: 60vw;
   background-color: #e8eef2;
 }
 .footer_text {

@@ -134,7 +134,7 @@ class HomeScreen extends Component {
 
                                 </div>
                                 <div className="workplace-container">
-                                    {this.passToCanvas()};
+                                    {this.passToCanvas()}
                                 </div>
                             </section>
                             <footer>
