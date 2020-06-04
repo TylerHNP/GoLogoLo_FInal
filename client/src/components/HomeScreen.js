@@ -63,7 +63,7 @@ class HomeScreen extends Component {
                     {({ loading, error, data }) => {
                         if (loading) return 'Loading...';
                         if (error) return `Error! ${error.message}`;
-                        console.log(data.logo)
+                        //console.log(data.logo)
                         return <Canvas selected={this.state.selected} width={data.logo.width} height={data.logo.height}
                             contents={(data.logo.texts.concat(data.logo.images).sort(function (logo1, logo2) {
                                 if (logo1.layer > logo2.layer) {
@@ -87,7 +87,6 @@ class HomeScreen extends Component {
                     if (error) return `Error! ${error.message}`;
 
                     return (
-
                         <Fragment>
                             <header>
                                 <div className="logo-container">
@@ -120,11 +119,11 @@ class HomeScreen extends Component {
                                                 }
                                                 return -1;
                                             }).map((logo, index) => (
-
                                                 <ul key={index}>
                                                     <li className="logo_link" >
                                                         <div style={{ display: "flex", flexDirection: "row" }}>
-                                                            <div id={logo._id} onClick={this.handlePreview} style={{ cursor: "pointer", flex: 6 }}>{logo.name}</div><Link style={{ flex: 2, color: 'inherit', textDecoration: 'inherit' }} to={`/view/${logo._id}`}>
+                                                            <div id={logo._id} onClick={this.handlePreview} style={{ cursor: "pointer", flex: 6 }}>{logo.name}</div>
+                                                            <Link style={{ flex: 2, color: 'inherit', textDecoration: 'inherit' }} to={`/edit/${logo._id}/${"edit"}`}>
                                                                 <button className="edit_button" >Edit</button>
                                                             </Link>
                                                         </div>
@@ -132,18 +131,13 @@ class HomeScreen extends Component {
                                                     </li>
                                                 </ul>
                                             ))} </div><div>
-
                                         </div>
                                     </div>
                                     <Link style={{ color: 'inherit', textDecoration: 'inherit' }} id="add_logo_button" to="/create">
                                         <div id="create_new_button">
                                             Create New
                                         <img style={{ marginLeft: 10, marginBottom: 5, verticalAlign: "middle" }} src={plusIcon} alt="Plus Icon" />
-
                                         </div></Link>
-
-
-
                                 </div>
                                 <div className="workplace-container">
                                     {this.passToCanvas()}

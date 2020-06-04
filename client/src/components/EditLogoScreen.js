@@ -371,11 +371,7 @@ class EditLogoScreen extends Component {
                 </div>
             )}
         </Mutation>);
-
     }
-
-
-
 }
 
 export default EditLogoScreen;

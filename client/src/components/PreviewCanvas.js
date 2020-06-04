@@ -19,7 +19,7 @@ class PreviewCanvas extends Component {
                     <Rect width={this.props.width} height={this.props.height} fill={"#e8eef2"} />
                 </Layer>
                 {this.props.contents.map((content, index) => {
-                    console.log(content.layer + " " + index);
+                    //console.log(content.layer + " " + index);
                     if (content.type === "text") {
                         return (<Layer key={index}><Text
                             id={content.layer}
@@ -42,7 +42,7 @@ class PreviewCanvas extends Component {
                                     x={content.x}
                                     y={content.y}
                                     width={content.width}
-                                    heigt={content.height} />
+                                    height={content.height} />
                             </Layer>
                         );
 
