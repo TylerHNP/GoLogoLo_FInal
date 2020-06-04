@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Image } from 'react-konva';
 
 class URLImage extends React.Component {
@@ -38,7 +38,6 @@ class URLImage extends React.Component {
                 id={this.props.layer}
                 name={this.props.type}
                 text={this.props.text}
-                draggable
                 width={this.props.width}
                 height={this.props.height}
                 image={this.state.image}

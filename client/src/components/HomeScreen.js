@@ -65,15 +65,15 @@ class HomeScreen extends Component {
                         if (error) return `Error! ${error.message}`;
                         console.log(data.logo)
                         return <Canvas selected={this.state.selected} width={data.logo.width} height={data.logo.height}
-                            contents={data.logo.texts.concat(data.logo.images).sort(function (logo1, logo2) {
+                            contents={(data.logo.texts.concat(data.logo.images).sort(function (logo1, logo2) {
                                 if (logo1.layer > logo2.layer) {
                                     return 1;
                                 }
-                                else if (logo1.lastUpdate === logo2.lastUpdate) {
+                                else if (logo1.layer === logo2.layer) {
                                     return 0;
                                 }
                                 return -1;
-                            })} />;
+                            }))} />;
                     }}
                 </Query>);
         }
