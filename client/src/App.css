@@ -75,11 +75,6 @@ nav ul {
   flex-direction: row;
 }
 
-.control-container {
-  flex: 1;
-  padding: 1.5rem;
-}
-
 #logo_links {
   height: 50vh;
   overflow-y: auto;
@@ -125,6 +120,22 @@ nav ul {
   border-radius: 2rem;
 }
 
+#preview_canvas {
+  max-height: 65vh;
+  max-width: 60vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.control-container {
+  flex: 1;
+  padding: 1.5rem;
+  background-color: antiquewhite;
+  display: flex;
+  flex-direction: column;
+}
+
 .workplace-container {
   flex: 2;
   padding: 1.5rem;
@@ -132,12 +143,12 @@ nav ul {
   max-height: 90vh;
 }
 
-#preview_canvas {
-  max-height: 65vh;
-  max-width: 60vw;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.controls {
+  background-color: #333333;
+  min-height: 10vh;
+  flex: 1;
+  margin-top: 1rem;
+  border-radius: 1rem;
 }
 .footer_text {
   flex: 1;

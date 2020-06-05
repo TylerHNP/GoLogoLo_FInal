@@ -4,9 +4,9 @@ import { Stage, Text, Rect, Layer } from 'react-konva';
 import URLImage from "./URLImage";
 
 
-class PreviewCanvas extends Component {
+class WorkspaceCanvas extends Component {
     renderCanvas = () => {
-        if (this.props.selected) {
+        if (this.props.contents) {
             return (<Stage width={this.props.width} height={this.props.height} >
                 <Layer>
                     <Rect width={this.props.width} height={this.props.height} fill={"#e8eef2"} />
@@ -23,6 +23,7 @@ class PreviewCanvas extends Component {
                             fill={content.color}
                             fontSize={content.fontSize}
                             fontFamily={content.fontFamily}
+                            draggable
                         /></Layer>);
                     }
                     else {
@@ -34,14 +35,12 @@ class PreviewCanvas extends Component {
                                     text={content.text}
                                     x={content.x}
                                     y={content.y}
+                                    draggable={true}
                                     width={content.width}
                                     height={content.height} />
                             </Layer>
                         );
-
                     }
-
-
                 })}
 
             </Stage>);
@@ -81,6 +80,6 @@ class PreviewCanvas extends Component {
     }
 }
 
-export default PreviewCanvas;
+export default WorkspaceCanvas;
 
 

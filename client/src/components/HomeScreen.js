@@ -133,7 +133,7 @@ class HomeScreen extends Component {
                                             ))} </div><div>
                                         </div>
                                     </div>
-                                    <Link style={{ color: 'inherit', textDecoration: 'inherit' }} id="add_logo_button" to="/create">
+                                    <Link style={{ color: 'inherit', textDecoration: 'inherit' }} id="add_logo_button" to={`/edit/${"null"}/${"create"}`}>
                                         <div id="create_new_button">
                                             Create New
                                         <img style={{ marginLeft: 10, marginBottom: 5, verticalAlign: "middle" }} src={plusIcon} alt="Plus Icon" />
