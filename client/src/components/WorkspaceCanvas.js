@@ -56,7 +56,7 @@ class WorkspaceCanvas extends Component {
             <Layer>
                 <Rect width={window.innerWidth * 0.6} height={window.innerHeight * 0.65} fill={"#e8eef2"} />
                 <Text
-                    text={"Please select a logo to preview."}
+                    text={"Please add a text or import an image."}
                     x={window.innerWidth * 0.6 / 2 - 250}
                     y={window.innerHeight * 0.65 / 2}
                     fill={" #333333"}
@@ -74,11 +74,11 @@ class WorkspaceCanvas extends Component {
             <div id="canvas_container">
                 <div className="yellow" style={{
                     padding: "1rem",
-                    fontSize: 20,
+                    fontSize: 24,
                     textAlign: "center",
                     // fontStyle: "italic"
                 }
-                }>Workspace </div>
+                }>{this.props.name} </div>
                 <div id="preview_canvas" >{this.renderCanvas()}</div>
             </div>
 

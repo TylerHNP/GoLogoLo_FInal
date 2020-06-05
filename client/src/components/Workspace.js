@@ -27,10 +27,11 @@ class Workspace extends Component {
     constructor(props) {
         super(props);
         this.history = props.history;
+        this.nameInput = React.createRef();
+        this.newTextInput = React.createRef();
+        this.newImageInput = React.createRef();
         this.state = {
-
             selected: null,
-            currentLayer: 0,
             id: props.logo._id,
             name: props.logo.name,
             width: props.logo.width,
@@ -86,6 +87,7 @@ class Workspace extends Component {
                 )}
             </Mutation>);
     }
+
     render() {
         return (
             <section>
@@ -98,17 +100,23 @@ class Workspace extends Component {
                         }>Logo</div>
                         <br />
                         <div style={{ display: "flex", paddingLeft: "0.5rem" }}>
-                            <input type="text" className="long_input" defaultValue={this.state.name} />
-                            <div style={{ flex: 1, textAlign: "center" }}><button className="control_button"> Change Name</button> </div>
+                            <input type="text" className="long_input" defaultValue={this.state.name} ref={this.nameInput} />
+                            <div style={{ flex: 1, textAlign: "center" }}>
+                                <button
+                                    className="control_button"
+                                    onClick={() => {
+                                        this.setState({ name: this.nameInput.current.value });
+                                    }}
+                                > Change Name</button> </div>
                         </div>
                         <br />
                         <div style={{ display: "flex", paddingLeft: "0.5rem" }}>
-                            <input type="text" className="long_input" placeholder="New Text" />
+                            <input type="text" className="long_input" placeholder="New Text" ref={this.newTextInput} />
                             <div style={{ flex: 1, textAlign: "center" }}><button className="control_button"> Add Text</button> </div>
                         </div>
                         <br />
                         <div style={{ display: "flex", paddingLeft: "0.5rem" }}>
-                            <input type="text" className="long_input" placeholder="URL" />
+                            <input type="text" className="long_input" placeholder="URL" ref={this.newImageInput} />
                             <div style={{ flex: 1, textAlign: "center" }}><button className="control_button">  Import Image</button> </div>
                         </div>
                         <br />
@@ -192,6 +200,7 @@ class Workspace extends Component {
                 </div>
                 <div className="workplace-container">
                     <Canvas
+                        name={this.state.name}
                         width={this.state.width}
                         height={this.state.height}
                         contents={this.state.contents}
