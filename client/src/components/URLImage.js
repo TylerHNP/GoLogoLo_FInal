@@ -35,13 +35,14 @@ class URLImage extends React.Component {
             <Image
                 x={this.props.x}
                 y={this.props.y}
-                id={this.props.layer}
+                id={this.props.id}
                 name={this.props.type}
                 text={this.props.text}
                 width={this.props.width}
                 height={this.props.height}
                 image={this.state.image}
                 draggable={this.props.draggable}
+                onDragEnd={this.props.onDragEnd}
                 ref={node => {
                     this.imageNode = node;
                 }}

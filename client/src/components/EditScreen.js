@@ -69,11 +69,11 @@ class EditScreen extends Component {
                         if (error) return `Error! ${error.message}`;
 
                         return (
-                            <Workspace adddCallback={false} logo={data.logo} />
+                            <Workspace addCallback={false} logo={data.logo} history={this.props.history} />
                         );
                     }}
                 </Query>}
-                {(this.props.match.params.action !== "edit") && <Workspace adddCallback={true} logo={defaultLogo} />}
+                {(this.props.match.params.action !== "edit") && <Workspace addCallback={true} logo={defaultLogo} history={this.props.history} />}
                 <footer>
                     <div className="footer_text">
                         Powered by GologoLo.org

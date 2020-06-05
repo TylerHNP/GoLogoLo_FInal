@@ -5,6 +5,10 @@ import URLImage from "./URLImage";
 
 
 class WorkspaceCanvas extends Component {
+    onDragEnd = (e) => {
+        // console.log(this.props.contents);
+        this.props.changePosition(e.target.id(), e.target.x(), e.target.y());
+    }
     renderCanvas = () => {
         if (this.props.contents) {
             return (<Stage width={this.props.width} height={this.props.height} >
@@ -24,6 +28,7 @@ class WorkspaceCanvas extends Component {
                             fontSize={content.fontSize}
                             fontFamily={content.fontFamily}
                             draggable
+                            onDragEnd={this.onDragEnd}
                         /></Layer>);
                     }
                     else {
@@ -37,7 +42,8 @@ class WorkspaceCanvas extends Component {
                                     y={content.y}
                                     draggable={true}
                                     width={content.width}
-                                    height={content.height} />
+                                    height={content.height}
+                                    onDragEnd={this.onDragEnd} />
                             </Layer>
                         );
                     }
@@ -66,12 +72,13 @@ class WorkspaceCanvas extends Component {
     render() {
         return (
             <div id="canvas_container">
-                <div className="green" style={{
+                <div className="yellow" style={{
                     padding: "1rem",
-                    fontSize: 24,
-                    textAlign: "center"
+                    fontSize: 20,
+                    textAlign: "center",
+                    // fontStyle: "italic"
                 }
-                }>Preview</div>
+                }>Workspace </div>
                 <div id="preview_canvas" >{this.renderCanvas()}</div>
             </div>
 
