@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import gql from "graphql-tag";
 import { Query, Mutation } from "react-apollo";
 
-
 const GET_LOGO = gql`
     query logo($logoId: String) {
         logo(id: $logoId) {

@@ -10,25 +10,24 @@ class PreviewCanvas extends Component {
             return (<Stage width={this.props.width} height={this.props.height} >
                 <Layer>
                     <Rect width={this.props.width} height={this.props.height} fill={"#e8eef2"} />
-                </Layer>
-                {this.props.contents.map((content, index) => {
-                    //console.log(content.layer + " " + index);
-                    if (content.type === "text") {
-                        return (<Layer key={index}><Text
-                            id={content.layer}
-                            name={content.type}
-                            text={content.text}
-                            x={content.x}
-                            y={content.y}
-                            fill={content.color}
-                            fontSize={content.fontSize}
-                            fontFamily={content.fontFamily}
-                        /></Layer>);
-                    }
-                    else {
-                        return (
-                            <Layer key={index}>
-                                <URLImage src={content.src}
+
+                    {this.props.contents.map((content, index) => {
+                        //console.log(content.layer + " " + index);
+                        if (content.__typename === "text") {
+                            return (<Text key={index}
+                                id={content.layer}
+                                name={content.type}
+                                text={content.text}
+                                x={content.x}
+                                y={content.y}
+                                fill={content.color}
+                                fontSize={content.fontSize}
+                                fontFamily={content.fontFamily}
+                            />);
+                        }
+                        else {
+                            return (
+                                <URLImage key={index} src={content.src}
                                     id={content.layer}
                                     name={content.type}
                                     text={content.text}
@@ -36,14 +35,11 @@ class PreviewCanvas extends Component {
                                     y={content.y}
                                     width={content.width}
                                     height={content.height} />
-                            </Layer>
-                        );
 
-                    }
-
-
-                })}
-
+                            );
+                        }
+                    })}
+                </Layer>
             </Stage>);
         }
 
@@ -57,7 +53,6 @@ class PreviewCanvas extends Component {
                     fill={" #333333"}
                     fontSize={24}
                     width={500}
-                    opacity={1}
                     fontFamily={"Lato"}
                     align={"center"}
                 />

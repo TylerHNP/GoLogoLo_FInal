@@ -24,7 +24,6 @@ query logo($logoId: String) {
             width
             texts {
             layer
-            type
             text
             x
             y
@@ -34,7 +33,6 @@ query logo($logoId: String) {
             } 
             images {
             layer
-            type
             src
             x
             y
@@ -63,7 +61,7 @@ class HomeScreen extends Component {
                     {({ loading, error, data }) => {
                         if (loading) return 'Loading...';
                         if (error) return `Error! ${error.message}`;
-                        //console.log(data.logo)
+                        // console.log(data.logo)
                         return <Canvas selected={this.state.selected} width={data.logo.width} height={data.logo.height}
                             contents={(data.logo.texts.concat(data.logo.images).sort(function (logo1, logo2) {
                                 if (logo1.layer > logo2.layer) {

@@ -18,8 +18,9 @@ class URLImage extends React.Component {
     }
     loadImage() {
         this.image = new window.Image();
+        this.image.crossOrigin = 'Anonymous';
+        this.image.addEventListener('load', this.handleLoad, false);
         this.image.src = this.props.src;
-        this.image.addEventListener('load', this.handleLoad);
     }
     handleLoad = () => {
 
@@ -36,13 +37,18 @@ class URLImage extends React.Component {
                 x={this.props.x}
                 y={this.props.y}
                 id={this.props.id}
-                name={this.props.type}
+                name={this.props.name}
                 text={this.props.text}
                 width={this.props.width}
                 height={this.props.height}
                 image={this.state.image}
                 draggable={this.props.draggable}
                 onDragEnd={this.props.onDragEnd}
+                onClick={this.props.onClick}
+                onDragStart={this.props.onDragStart}
+                strokeWidth={this.props.strokeWidth}
+                stroke={this.props.stroke}
+                strokeEnabled={this.props.strokeEnabled}
                 ref={node => {
                     this.imageNode = node;
                 }}

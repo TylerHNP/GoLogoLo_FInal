@@ -131,7 +131,6 @@ nav ul {
 .control-container {
   flex: 1;
   padding: 1rem;
-  background-color: antiquewhite;
   display: flex;
   flex-direction: column;
 }
@@ -154,11 +153,10 @@ nav ul {
 
 .control_button {
   color: #333333;
-  width: 10vw;
+  width: 90%;
   height: 5vh;
   border-radius: 0.5rem;
   font-size: 16px;
-  background-color: #f0b67f;
   box-shadow: none;
   border: none;
   font-weight: bolder;
@@ -177,23 +175,25 @@ nav ul {
 
 .control_row {
   text-align: center;
+  justify-content: space-around;
 }
 
 .control_label {
   color: #f0b67f;
-  margin: 1rem;
   font-size: 16px;
+  margin-right: 0.5rem;
 }
 
 .control_input {
-  width: 3vw;
+  width: 12%;
   height: 2vw;
   text-align: center;
   font-size: 16px;
   border-radius: 0.5rem;
   box-shadow: none;
   border: none;
-  margin-right: 3rem;
+  margin-right: 1rem;
+  vertical-align: middle;
 }
 .footer_text {
   flex: 1;
@@ -203,7 +203,7 @@ nav ul {
 }
 
 .long_input {
-  flex: 1;
+  flex: 1.5;
   padding: 0.5rem;
   border: none;
   border-radius: 0.5rem;

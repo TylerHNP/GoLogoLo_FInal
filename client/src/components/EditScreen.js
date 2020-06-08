@@ -15,7 +15,6 @@ query logo($logoId: String) {
             width
             texts {
             layer
-            type
             text
             x
             y
@@ -25,7 +24,6 @@ query logo($logoId: String) {
             } 
             images {
             layer
-            type
             src
             x
             y
@@ -43,11 +41,11 @@ class EditScreen extends Component {
     render() {
         const defaultLogo = {
             _id: null,
-            name: null,
+            name: "New Logo",
             images: [],
             texts: [],
-            height: 0,
-            width: 0
+            height: 400,
+            width: 400
         }
         return (
             <Fragment>

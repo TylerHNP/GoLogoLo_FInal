@@ -18,9 +18,6 @@ var textType = new GraphQLObjectType({
             layer: {
                 type: GraphQLInt
             },
-            type: {
-                type: GraphQLString
-            },
             text: {
                 type: GraphQLString
             },
@@ -50,9 +47,6 @@ var imageType = new GraphQLObjectType({
         return {
             layer: {
                 type: GraphQLInt
-            },
-            type: {
-                type: GraphQLString
             },
             src: {
                 type: GraphQLString
@@ -127,9 +121,6 @@ var textInputType = new GraphQLInputObjectType({
         layer: {
             type: GraphQLInt
         },
-        type: {
-            type: GraphQLString
-        },
         text: {
             type: GraphQLString
         },
@@ -158,9 +149,6 @@ var imageInputType = new GraphQLInputObjectType({
     fields: () => ({
         layer: {
             type: GraphQLInt
-        },
-        type: {
-            type: GraphQLString
         },
         src: {
             type: GraphQLString

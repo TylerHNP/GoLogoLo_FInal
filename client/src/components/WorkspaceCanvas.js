@@ -5,51 +5,75 @@ import URLImage from "./URLImage";
 
 
 class WorkspaceCanvas extends Component {
+    constructor() {
+        super();
+    }
+
     onDragEnd = (e) => {
         // console.log(this.props.contents);
         this.props.changePosition(e.target.id(), e.target.x(), e.target.y());
+        this.props.deSelect();
+    }
+
+    onSelect = (e) => {
+        this.props.changeSelect(e.target);
     }
     renderCanvas = () => {
         if (this.props.contents) {
-            return (<Stage width={this.props.width} height={this.props.height} >
+            return (
                 <Layer>
-                    <Rect width={this.props.width} height={this.props.height} fill={"#e8eef2"} />
-                </Layer>
-                {this.props.contents.map((content, index) => {
-                    //console.log(content.layer + " " + index);
-                    if (content.type === "text") {
-                        return (<Layer key={index}><Text
-                            id={content.layer}
-                            name={content.type}
-                            text={content.text}
-                            x={content.x}
-                            y={content.y}
-                            fill={content.color}
-                            fontSize={content.fontSize}
-                            fontFamily={content.fontFamily}
-                            draggable
-                            onDragEnd={this.onDragEnd}
-                        /></Layer>);
-                    }
-                    else {
-                        return (
-                            <Layer key={index}>
-                                <URLImage src={content.src}
+                    <Rect width={this.props.width} height={this.props.height} fill={"#e8eef2"} onClick={this.props.deSelect} />
+                    {this.props.contents.map((content, index) => {
+                        var selectedSwitch = ((this.props.selected !== null) && (index === this.props.selected));
+                        //console.log(selectedSwitch);
+                        if (content.__typename === "text") {
+                            return (
+                                <React.Fragment key={index}>
+                                    <Text
+                                        id={content.layer}
+                                        name={content.__typename}
+                                        text={content.text}
+                                        x={content.x}
+                                        y={content.y}
+                                        fill={content.color}
+                                        fontSize={content.fontSize}
+                                        fontFamily={content.fontFamily}
+                                        draggable
+                                        onDragEnd={this.onDragEnd}
+                                        onDragStart={this.onSelect}
+                                        onClick={this.onSelect}
+                                        strokeWidth={content.fontSize / 50}
+                                        stroke={"#a5ffd6"}
+                                        strokeEnabled={selectedSwitch}
+                                        align={"center"}
+                                        verticalAlign={"middle"}
+                                    />
+                                </React.Fragment>
+                            );
+                        }
+                        else {
+                            return (
+                                <URLImage src={content.src} key={index}
                                     id={content.layer}
-                                    name={content.type}
+                                    name={content.__typename}
                                     text={content.text}
                                     x={content.x}
                                     y={content.y}
                                     draggable={true}
                                     width={content.width}
                                     height={content.height}
-                                    onDragEnd={this.onDragEnd} />
-                            </Layer>
-                        );
-                    }
-                })}
+                                    onDragEnd={this.onDragEnd}
+                                    onDragStart={this.onSelect}
+                                    onClick={this.onSelect}
+                                    strokeWidth={content.width / 50}
+                                    stroke={"#a5ffd6"}
+                                    strokeEnabled={selectedSwitch}
+                                />
 
-            </Stage>);
+                            );
+                        }
+                    })}
+                </Layer>);
         }
 
         return (<Stage width={window.innerWidth * 0.6} height={window.innerHeight * 0.65} >
@@ -79,7 +103,9 @@ class WorkspaceCanvas extends Component {
                     // fontStyle: "italic"
                 }
                 }>{this.props.name} </div>
-                <div id="preview_canvas" >{this.renderCanvas()}</div>
+                <div id="preview_canvas" >
+                    <Stage width={this.props.width} height={this.props.height} ref={this.props.stageRef}>{this.renderCanvas()}</Stage>
+                </div>
             </div>
 
         );
