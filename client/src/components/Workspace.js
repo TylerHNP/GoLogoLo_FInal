@@ -10,12 +10,13 @@ const UPDATE_LOGO = gql`
     mutation Updatelogo(
         $id: String!,
         $name:String!,
+        $backgroundColor: String!,
         $texts: [textInput]!,
         $images: [imageInput]!,
         $height:Int!,
         $width: Int!
     ){
-	    updateLogo(id: $id,name: $name, height: $height, width: $width,texts: $texts, images: $images){
+	    updateLogo(id: $id,name: $name, height: $height, width: $width, backgroundColor: $backgroundColor, texts: $texts, images: $images){
         _id
         name
   }
@@ -23,8 +24,8 @@ const UPDATE_LOGO = gql`
 `;
 
 const ADD_LOGO = gql`
-    mutation Addlogo($name:String!,$texts: [textInput]!,$images: [imageInput]!,$height:Int!, $width: Int!){
-    addLogo(name: $name, height: $height, width: $width,texts: $texts, images: $images)
+    mutation Addlogo($name:String!,$backgroundColor: String!,$texts: [textInput]!,$images: [imageInput]!,$height:Int!, $width: Int!){
+    addLogo(name: $name, height: $height, backgroundColor: $backgroundColor,width: $width,texts: $texts, images: $images)
     {
     _id
     name
@@ -49,12 +50,15 @@ class Workspace extends Component {
         this.newTextInput = React.createRef();
         this.newImageInput = React.createRef();
         this.stageRef = React.createRef();
+        this.textInput = React.createRef();
+        this.imageInput = React.createRef();
         this.state = {
             selected: null,
             id: props.logo._id,
             name: props.logo.name,
             width: props.logo.width,
             height: props.logo.height,
+            backgroundColor: props.logo.backgroundColor,
             contents: (props.logo.texts.concat(props.logo.images).sort(function (logo1, logo2) {
                 if (logo1.layer > logo2.layer) {
                     return 1;
@@ -170,6 +174,16 @@ class Workspace extends Component {
         this.setState({ selected: null, contents: newContents });
     }
 
+    handleTextChange = () => {
+        if (!this.textInput.current.value) {
+            alert("Please enter a text value");
+            return;
+        }
+        var newContents = this.state.contents;
+        newContents[this.state.selected].text = this.textInput.current.value;
+        this.setState({ contents: newContents });
+    }
+
     handleTextFontSizeChange = (e) => {
         var newContents = this.state.contents;
         newContents[this.state.selected].fontSize = Number.parseInt(e.target.value)
@@ -192,6 +206,16 @@ class Workspace extends Component {
         var newContents = this.state.contents;
         newContents[this.state.selected].width = Number.parseInt(e.target.value)
             ? Number.parseInt(e.target.value) : 0;
+        this.setState({ contents: newContents });
+    }
+
+    handleImageChange = () => {
+        if (!this.imageInput.current.value) {
+            alert("Please enter a valid source for image");
+            return;
+        }
+        var newContents = this.state.contents;
+        newContents[this.state.selected].src = this.textInput.current.value;
         this.setState({ contents: newContents });
     }
 
@@ -261,7 +285,7 @@ class Workspace extends Component {
                                 updateLogo({
                                     variables: {
                                         id: this.state.id, name: this.state.name, height: this.state.height, width: this.state.width,
-                                        texts: newTexts, images: newImages
+                                        backgroundColor: this.state.backgroundColor, texts: newTexts, images: newImages
                                     }
                                 });
                             }}
@@ -306,6 +330,7 @@ class Workspace extends Component {
                                 addLogo({
                                     variables: {
                                         name: this.state.name, height: this.state.height, width: this.state.width,
+                                        backgroundColor: this.state.backgroundColor,
                                         texts: newTexts, images: newImages
                                     }
                                 });
@@ -361,6 +386,7 @@ class Workspace extends Component {
         return (
             <section>
                 <div className="control-container">
+                    <br />
                     <div id="canvas_controls" className="controls" >
                         <div className="yellow" style={{
                             fontSize: 20,
@@ -409,12 +435,24 @@ class Workspace extends Component {
                                 onChange={e => { this.setState({ height: parseInt(e.target.value) ? parseInt(e.target.value) : 0 }) }} />
                         </div>
                     </div>
+                    <br />
                     {(this.state.selected !== null && this.state.contents[this.state.selected].__typename === "text") && <div className="controls" id="text_controls">
-                        <div className="yellow" style={{
+                        <div style={{ display: "flex", paddingLeft: "0.5rem" }}>
+                            <input type="text" className="long_input" defaultValue={this.state.contents[this.state.selected].text} ref={this.textInput} />
+                            <div style={{ flex: 1, textAlign: "center" }}>
+                                <button
+                                    className="control_button"
+                                    style={{
+                                        backgroundColor: "#f0b67f"
+                                    }}
+                                    onClick={this.handleTextChange}
+                                > Change Text</button> </div>
+                        </div>
+                        {/* <div className="yellow" style={{
                             fontSize: 20,
                             textAlign: "center"
                         }
-                        }>Text</div>
+                        }>Text</div> */}
                         <br />
                         {this.layerControls()}
                         <br />
@@ -444,11 +482,22 @@ class Workspace extends Component {
                         </div>
                     </div>}
                     {(this.state.selected !== null && this.state.contents[this.state.selected].__typename === "image") && <div className="controls" id="image_controls">
-                        <div className="yellow" style={{
+                        {/* <div className="yellow" style={{
                             fontSize: 20,
                             textAlign: "center"
                         }
-                        }>Image</div>
+                        }>Image</div> */}
+                        <div style={{ display: "flex", paddingLeft: "0.5rem" }}>
+                            <input type="text" className="long_input" defaultValue={this.state.contents[this.state.selected].src} ref={this.imageInput} />
+                            <div style={{ flex: 1, textAlign: "center" }}>
+                                <button
+                                    className="control_button"
+                                    style={{
+                                        backgroundColor: "#f0b67f"
+                                    }}
+                                    onClick={this.handleImageChange}
+                                > Change Image</button> </div>
+                        </div>
                         <br />
                         {this.layerControls()}
                         <br />
@@ -471,10 +520,15 @@ class Workspace extends Component {
                             }} name="fontFamily"
                                 defaultValue={"1"}
                                 onChange={this.handleImageScaleChange} multiple={false} >
+                                <option value="0.25">0.25</option>
                                 <option value="0.5">0.5</option>
+                                <option value="0.75">0.75</option>
                                 <option value="1">1</option>
                                 <option value="1.5">1.5</option>
                                 <option value="2">2</option>
+                                <option value="2.5">2.5</option>
+                                <option value="3">3</option>
+
                             </select>
                         </div>
                     </div>}
@@ -493,6 +547,11 @@ class Workspace extends Component {
                                 fontStyle: "italic"
                             }}>Click an image or a text to select and change their attributes.</div>
                             <br />
+                            <div className="green" style={{
+                                fontSize: 15,
+                                textAlign: "center",
+                                fontStyle: "italic"
+                            }}>Drag the element to position</div>
                             <br />
                         </div>
                     }
@@ -517,6 +576,7 @@ class Workspace extends Component {
                         name={this.state.name}
                         width={this.state.width}
                         height={this.state.height}
+                        backgroundColor={this.state.backgroundColor}
                         contents={this.state.contents}
                         changePosition={this.changePosition}
                         changeSelect={this.changeSelect}

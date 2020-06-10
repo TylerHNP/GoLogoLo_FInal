@@ -22,6 +22,7 @@ query logo($logoId: String) {
             name
             height
             width
+            backgroundColor
             texts {
             layer
             text
@@ -63,6 +64,7 @@ class HomeScreen extends Component {
                         if (error) return `Error! ${error.message}`;
                         // console.log(data.logo)
                         return <Canvas selected={this.state.selected} width={data.logo.width} height={data.logo.height}
+                            backgroundColor={data.logo.backgroundColor}
                             contents={(data.logo.texts.concat(data.logo.images).sort(function (logo1, logo2) {
                                 if (logo1.layer > logo2.layer) {
                                     return 1;
@@ -100,6 +102,7 @@ class HomeScreen extends Component {
                             </header>
                             <section>
                                 <div className="control-container">
+                                    <br />
                                     <div id="menu">
                                         <div className="green" style={{
                                             padding: "1rem",

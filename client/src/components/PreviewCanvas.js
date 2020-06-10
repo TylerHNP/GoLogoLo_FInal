@@ -9,7 +9,7 @@ class PreviewCanvas extends Component {
         if (this.props.selected) {
             return (<Stage width={this.props.width} height={this.props.height} >
                 <Layer>
-                    <Rect width={this.props.width} height={this.props.height} fill={"#e8eef2"} />
+                    <Rect width={this.props.width} height={this.props.height} fill={this.props.backgroundColor} />
 
                     {this.props.contents.map((content, index) => {
                         //console.log(content.layer + " " + index);

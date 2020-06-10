@@ -130,14 +130,14 @@ nav ul {
 
 .control-container {
   flex: 1;
-  padding: 1rem;
+  padding-left: 1rem;
   display: flex;
   flex-direction: column;
 }
 
 .workplace-container {
   flex: 2;
-  padding: 1.5rem;
+  padding: 1.2rem;
   max-width: 70vw;
   max-height: 90vh;
 }
@@ -146,7 +146,6 @@ nav ul {
   background-color: #333333;
   /* min-height: 10vh; */
   flex: 1;
-  margin-top: 2.5vh;
   border-radius: 1rem;
   padding: 1rem;
 }

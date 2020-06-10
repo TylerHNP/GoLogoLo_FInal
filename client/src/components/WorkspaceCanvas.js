@@ -26,7 +26,7 @@ class WorkspaceCanvas extends Component {
         if (this.props.contents) {
             return (
                 <Layer>
-                    <Rect width={this.props.width} height={this.props.height} fill={"#e8eef2"} onClick={this.props.deSelect} />
+                    <Rect width={this.props.width} height={this.props.height} fill={this.props.backgroundColor} onClick={this.props.deSelect} />
                     {this.props.contents.map((content, index) => {
                         var selectedSwitch = ((this.props.selected !== null) && (index === this.props.selected));
 

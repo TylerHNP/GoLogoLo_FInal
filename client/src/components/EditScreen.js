@@ -13,6 +13,7 @@ query logo($logoId: String) {
             name
             height
             width
+            backgroundColor
             texts {
             layer
             text
@@ -45,7 +46,8 @@ class EditScreen extends Component {
             images: [],
             texts: [],
             height: 400,
-            width: 400
+            width: 400,
+            backgroundColor: "#e8eef2"
         }
         return (
             <Fragment>
