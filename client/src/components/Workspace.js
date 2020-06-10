@@ -228,8 +228,8 @@ class Workspace extends Component {
 
     handleImageScaleChange = (e) => {
         var newContents = this.state.contents;
-        newContents[this.state.selected].height *= Number.parseFloat(e.target.value);
-        newContents[this.state.selected].width *= Number.parseFloat(e.target.value);
+        newContents[this.state.selected].height = Number.parseInt(newContents[this.state.selected].height * Number.parseFloat(e.target.value));
+        newContents[this.state.selected].width = Number.parseInt(newContents[this.state.selected].width * Number.parseFloat(e.target.value));
         this.setState({ contents: newContents });
     }
 
@@ -433,6 +433,9 @@ class Workspace extends Component {
                             <label className="control_label" htmlFor="canvas_height">Height: </label>
                             <input type="number" className="control_input" name="canvas_height" value={this.state.height}
                                 onChange={e => { this.setState({ height: parseInt(e.target.value) ? parseInt(e.target.value) : 0 }) }} />
+                            <label className="control_label" htmlFor="canvas_backgroundColor">Color: </label>
+                            <input type="color" className="control_input" name="canvas_backgroundColor" value={this.state.backgroundColor}
+                                onChange={e => { this.setState({ backgroundColor: e.target.value }) }} />
                         </div>
                     </div>
                     <br />
@@ -517,8 +520,8 @@ class Workspace extends Component {
                                 textAlign: "center",
                                 fontSize: 16,
                                 borderRadius: "0.5rem"
-                            }} name="fontFamily"
-                                defaultValue={"1"}
+                            }} name="scale"
+                                value={"1"}
                                 onChange={this.handleImageScaleChange} multiple={false} >
                                 <option value="0.25">0.25</option>
                                 <option value="0.5">0.5</option>
