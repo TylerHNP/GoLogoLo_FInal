@@ -4,7 +4,6 @@ import gql from 'graphql-tag';
 import { Mutation } from "react-apollo";
 import Canvas from './WorkspaceCanvas';
 import { Link } from 'react-router-dom';
-import { responsePathAsArray } from 'graphql';
 
 
 const UPDATE_LOGO = gql`
@@ -183,7 +182,6 @@ class Workspace extends Component {
         }
         var newContents = this.state.contents;
         newContents[this.state.selected].text = this.textInput.current.value;
-        var savedSelected = this.state.selected;
         this.setState({ contents: newContents });
     }
 
@@ -213,12 +211,13 @@ class Workspace extends Component {
     }
 
     handleImageChange = () => {
+        console.log("it is called");
         if (!this.imageInput.current.value) {
             alert("Please enter a valid source for image");
             return;
         }
         var newContents = this.state.contents;
-        newContents[this.state.selected].src = this.textInput.current.value;
+        newContents[this.state.selected].src = this.imageInput.current.value;
         this.setState({ contents: newContents });
     }
 
