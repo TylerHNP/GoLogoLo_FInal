@@ -8,25 +8,18 @@ class WorkspaceCanvas extends Component {
 
     constructor() {
         super();
-        this.state = {
-            height: 0,
-            width: 0
-        };
+        this.selectedRef = createRef()
     }
-    // componentDidUpdate = () => {
-    //     if (this.props.selected) {
-    //         console.log("component did update");
-    //     }
-    // }
+
 
     onDragEnd = (e) => {
-        this.setState({ width: e.target.width(), height: e.target.height() })
+        this.selectedRef = e.target;
         this.props.changeSelect(e.target);
         this.props.changePosition(e.target.id(), e.target.x(), e.target.y());
-    }
 
+    }
     onSelect = (e) => {
-        this.setState({ width: e.target.width(), height: e.target.height() })
+        this.selectedRef = e.target;
         this.props.changeSelect(e.target);
     }
     renderCanvas = () => {
@@ -36,14 +29,14 @@ class WorkspaceCanvas extends Component {
                     <Rect width={this.props.width} height={this.props.height} fill={"#e8eef2"} onClick={this.props.deSelect} />
                     {this.props.contents.map((content, index) => {
                         var selectedSwitch = ((this.props.selected !== null) && (index === this.props.selected));
-                        console.log(this.state);
+
                         if (content.__typename === "text") {
                             return (
                                 <React.Fragment key={index}>
-                                    {selectedSwitch && <Rect width={this.state.width + 10} height={this.state.height + 10} x={content.x - 5}
-                                        y={content.y - 5} strokeWidth={3}
+                                    {selectedSwitch && <Rect x={content.x - 5}
+                                        y={content.y - 5} strokeWidth={5}
                                         stroke={"#fe5f55"}
-                                        strokeEnabled={selectedSwitch} />}
+                                        strokeEnabled={selectedSwitch} width={this.selectedRef.width() + 10} height={this.selectedRef.height() + 10} />}
                                     <Text
                                         id={content.layer}
                                         name={content.__typename}
@@ -54,10 +47,12 @@ class WorkspaceCanvas extends Component {
                                         fontSize={content.fontSize}
                                         fontFamily={content.fontFamily}
                                         draggable
+                                        onDragStart={this.props.deSelect}
                                         onDragEnd={this.onDragEnd}
                                         onClick={this.onSelect}
                                         align={"center"}
                                         verticalAlign={"middle"}
+                                        onTransformEnd={this.changefontSize}
                                     />
                                 </React.Fragment>
                             );

@@ -202,6 +202,13 @@ class Workspace extends Component {
         this.setState({ contents: newContents });
     }
 
+    handleImageScaleChange = (e) => {
+        var newContents = this.state.contents;
+        newContents[this.state.selected].height *= Number.parseFloat(e.target.value);
+        newContents[this.state.selected].width *= Number.parseFloat(e.target.value);
+        this.setState({ contents: newContents });
+    }
+
 
 
     changePosition = (layer, x, y) => {
@@ -209,6 +216,12 @@ class Workspace extends Component {
         newContents[layer].x = x;
         newContents[layer].y = y;
         this.setState({ contents: newContents })
+    }
+
+    handleTransform = (fontSize) => {
+        var newContents = this.state.contents;
+        newContents[this.state.selected].fontSize = fontSize;
+        this.setState({ contents: newContents });
     }
 
     changeSelect = (e) => {
@@ -448,6 +461,21 @@ class Workspace extends Component {
                             <input type="number" className="control_input" name="image_height"
                                 value={parseInt(this.state.contents[this.state.selected].height)}
                                 onChange={this.handleImageHeightChange} />
+
+                            <label className="control_label" htmlFor="scale">Scale: </label>
+                            <select type="color" style={{
+                                verticalAlign: "middle", height: "2vw",
+                                textAlign: "center",
+                                fontSize: 16,
+                                borderRadius: "0.5rem"
+                            }} name="fontFamily"
+                                defaultValue={"1"}
+                                onChange={this.handleImageScaleChange} multiple={false} >
+                                <option value="0.5">0.5</option>
+                                <option value="1">1</option>
+                                <option value="1.5">1.5</option>
+                                <option value="2">2</option>
+                            </select>
                         </div>
                     </div>}
                     {(this.state.selected === null) &&
@@ -495,6 +523,7 @@ class Workspace extends Component {
                         deSelect={this.deSelect}
                         selected={this.state.selected}
                         stageRef={this.stageRef}
+                        handleTransform={this.handleTransform}
                     />
                 </div>
             </section >
