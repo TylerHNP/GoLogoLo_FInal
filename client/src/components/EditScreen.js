@@ -53,7 +53,7 @@ class EditScreen extends Component {
             <Fragment>
                 <header>
                     <div className="logo-container">
-                        <Link to="/"><img className="logo" src={logo} alt="Logo" /></Link>
+                        <Link onClick={e => alert("the logo would not be saved")} to="/"><img className="logo" src={logo} alt="Logo" /></Link>
                     </div>
                     <nav>
                         <ul className="nav-links">

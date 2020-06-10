@@ -11,7 +11,6 @@ class WorkspaceCanvas extends Component {
         this.selectedRef = createRef()
     }
 
-
     onDragEnd = (e) => {
         this.selectedRef = e.target;
         this.props.changeSelect(e.target);

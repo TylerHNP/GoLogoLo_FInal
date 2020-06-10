@@ -242,11 +242,6 @@ class Workspace extends Component {
         this.setState({ contents: newContents })
     }
 
-    handleTransform = (fontSize) => {
-        var newContents = this.state.contents;
-        newContents[this.state.selected].fontSize = fontSize;
-        this.setState({ contents: newContents });
-    }
 
     changeSelect = (e) => {
         this.setState({ selected: parseInt(e.id()) });
