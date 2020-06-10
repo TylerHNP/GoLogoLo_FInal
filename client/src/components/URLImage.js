@@ -45,7 +45,6 @@ class URLImage extends React.Component {
                 draggable={this.props.draggable}
                 onDragEnd={this.props.onDragEnd}
                 onClick={this.props.onClick}
-                onDragStart={this.props.onDragStart}
                 strokeWidth={this.props.strokeWidth}
                 stroke={this.props.stroke}
                 strokeEnabled={this.props.strokeEnabled}

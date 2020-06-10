@@ -222,7 +222,7 @@ class Workspace extends Component {
     handleUpdate = () => {
         // console.log(this.history);
         return (
-            <Mutation mutation={UPDATE_LOGO} key={this.state.id} onCompleted={() => this.history.push(`/`)}>
+            <Mutation mutation={UPDATE_LOGO} onCompleted={() => this.history.push(`/`)}>
                 {(updateLogo, { loading, error }) => {
                     if (loading) return 'Loading...';
                     if (error) return `Error! ${error.message}`;
@@ -243,8 +243,6 @@ class Workspace extends Component {
                                         delete toAdd.__typename;
                                         newImages.push(toAdd);
                                     }
-
-
                                 });
                                 console.log(this.state.contents);
                                 updateLogo({
@@ -338,9 +336,9 @@ class Workspace extends Component {
                                     removeLogo({ variables: { id: this.state.id } });
                                 }}
                             >  Delete</button>
-                        </div>}
+                        </div>
                         {loading && <p>Loading...</p>}
-                        {error && <p>Error :( Please try again</p>}
+                        {error && <p>Error :( Please try again)</p>}
                     </Fragment>
                 )}
             </Mutation>);
@@ -465,15 +463,13 @@ class Workspace extends Component {
                                 fontSize: 15,
                                 textAlign: "center",
                                 fontStyle: "italic"
-                            }
-                            }>Click an image or a text to select and change their attributes.</div>
+                            }}>Click an image or a text to select and change their attributes.</div>
                             <br />
                             <br />
                         </div>
                     }
 
                     <div style={{ display: "flex", flex: 1, marginTop: "1rem" }} id="button_controls">
-
                         {(!this.props.addCallback) && this.handleUpdate()}
                         {(this.props.addCallback) && this.handleAdd()}
                         <div style={{ flex: 1, textAlign: "center" }}>
@@ -485,7 +481,6 @@ class Workspace extends Component {
                                 <button className="main_button" style={{ color: "#fe5f55" }}>  Cancel</button>
                             </Link>
                         </div>}
-                        }
 
                     </div>
                 </div>

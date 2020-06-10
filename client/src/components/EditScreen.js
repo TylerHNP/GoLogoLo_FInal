@@ -40,7 +40,7 @@ query logo($logoId: String) {
 class EditScreen extends Component {
     render() {
         const defaultLogo = {
-            _id: null,
+            _id: "",
             name: "New Logo",
             images: [],
             texts: [],

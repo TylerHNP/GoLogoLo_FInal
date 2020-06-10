@@ -1,21 +1,32 @@
-import React, { Component } from 'react';
+import React, { Component, createRef } from 'react';
 import '../App.css';
 import { Stage, Text, Rect, Layer } from 'react-konva';
 import URLImage from "./URLImage";
 
 
 class WorkspaceCanvas extends Component {
+
     constructor() {
         super();
+        this.state = {
+            height: 0,
+            width: 0
+        };
     }
+    // componentDidUpdate = () => {
+    //     if (this.props.selected) {
+    //         console.log("component did update");
+    //     }
+    // }
 
     onDragEnd = (e) => {
-        // console.log(this.props.contents);
+        this.setState({ width: e.target.width(), height: e.target.height() })
+        this.props.changeSelect(e.target);
         this.props.changePosition(e.target.id(), e.target.x(), e.target.y());
-        this.props.deSelect();
     }
 
     onSelect = (e) => {
+        this.setState({ width: e.target.width(), height: e.target.height() })
         this.props.changeSelect(e.target);
     }
     renderCanvas = () => {
@@ -25,10 +36,14 @@ class WorkspaceCanvas extends Component {
                     <Rect width={this.props.width} height={this.props.height} fill={"#e8eef2"} onClick={this.props.deSelect} />
                     {this.props.contents.map((content, index) => {
                         var selectedSwitch = ((this.props.selected !== null) && (index === this.props.selected));
-                        //console.log(selectedSwitch);
+                        console.log(this.state);
                         if (content.__typename === "text") {
                             return (
                                 <React.Fragment key={index}>
+                                    {selectedSwitch && <Rect width={this.state.width + 10} height={this.state.height + 10} x={content.x - 5}
+                                        y={content.y - 5} strokeWidth={3}
+                                        stroke={"#fe5f55"}
+                                        strokeEnabled={selectedSwitch} />}
                                     <Text
                                         id={content.layer}
                                         name={content.__typename}
@@ -40,11 +55,7 @@ class WorkspaceCanvas extends Component {
                                         fontFamily={content.fontFamily}
                                         draggable
                                         onDragEnd={this.onDragEnd}
-                                        onDragStart={this.onSelect}
                                         onClick={this.onSelect}
-                                        strokeWidth={content.fontSize / 50}
-                                        stroke={"#a5ffd6"}
-                                        strokeEnabled={selectedSwitch}
                                         align={"center"}
                                         verticalAlign={"middle"}
                                     />
@@ -63,10 +74,9 @@ class WorkspaceCanvas extends Component {
                                     width={content.width}
                                     height={content.height}
                                     onDragEnd={this.onDragEnd}
-                                    onDragStart={this.onSelect}
                                     onClick={this.onSelect}
-                                    strokeWidth={content.width / 50}
-                                    stroke={"#a5ffd6"}
+                                    strokeWidth={7}
+                                    stroke={"#fe5f55"}
                                     strokeEnabled={selectedSwitch}
                                 />
 
